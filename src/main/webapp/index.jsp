@@ -1,6 +1,6 @@
 <html>
 <body>
-<h2>Hello World! Welcome to Jenkins Training v2 Code Pipeline...</h2>
-<p>This code is still not Shipped in Production...</p>
+<h2>Hello! Welcome to Alti Demo for AZURE CI/CD on multi cloud deployment...</h2>
+<p>... Hope you got the surprice ...</p>
 </body>
 </html>
