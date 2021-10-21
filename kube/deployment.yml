@@ -15,7 +15,6 @@ spec:
         app: demo
     spec:
       containers:
-      imagePullPolicy: Always
       - name: demo
         image: 536285340728.dkr.ecr.us-east-1.amazonaws.com/devops-demo:latest
         ports:
