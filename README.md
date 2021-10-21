@@ -1,20 +1,55 @@
-JavaParser and Maven sample
----
+# java-tomcat-maven-example
 
-A fully working sample Maven project that parses and generates code with [JavaParser](http://www.javaparser.org)
+This is an example ready-to-deploy java web application built for Tomcat using Maven and webapp-runner.
 
-This is targeted at people without [Maven](https://maven.apache.org/) experience.
+## Running Locally
 
-To build it, you will need to download and unpack the latest (or recent) version of Maven (https://maven.apache.org/download.cgi)
-and put the `mvn` command on your path.
-Then, you will need to install a Java 1.8 (or higher) JDK (not JRE!), and make sure you can run `java` from the command line.
-Now you can run `mvn clean install` and Maven will compile your project, 
-an put the results it in two jar files in the `target` directory.
-If you like to run from the command line,
-execute `java -jar target/javaparser-maven-sample-1.0-SNAPSHOT-shaded.jar`.
+(need maven and java installed)
 
-How you run this code is up to you, but usually you would start by using an IDE like [NetBeans](https://netbeans.org/), [Intellij IDEA](https://www.jetbrains.com/idea/), or [Eclipse](https://eclipse.org/ide/).
+```
+mvn package
+java -jar target/dependency/webapp-runner.jar target/*.war
+```
 
-The Maven dependencies may lag behind the official releases a bit.
+The application will be available on `http://localhost:8080`.
 
-If you notice some problems with this setup, please open an issue.
+## How This Was Built
+
+1. Generate the project using a Maven archetype:
+
+   ```
+   mvn archetype:generate -DarchetypeArtifactId=maven-archetype-webapp
+   ```
+
+2. Add the webapp-runner plugin into the `pom.xml`:
+
+   ```
+   <build>
+     <!-- ... -->
+     <plugins>
+       <!-- ... -->
+       <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-dependency-plugin</artifactId>
+         <version>2.3</version>
+         <executions>
+           <execution>
+             <phase>package</phase>
+             <goals><goal>copy</goal></goals>
+             <configuration>
+               <artifactItems>
+                 <artifactItem>
+                   <groupId>com.github.jsimone</groupId>
+                   <artifactId>webapp-runner</artifactId>
+                   <version>8.5.11.3</version>
+                   <destFileName>webapp-runner.jar</destFileName>
+                 </artifactItem>
+               </artifactItems>
+             </configuration>
+           </execution>
+         </executions>
+       </plugin>
+     </plugins>
+   </build>
+   ```
+# java-tomcat-sample-docker
